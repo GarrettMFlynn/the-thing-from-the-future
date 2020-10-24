@@ -1,2 +1,2 @@
 # the-thing-from-the-future
- A web version of The Thing from the Future created by Jeff Watson and the Situation Lab
+The Thing from the Future (2nd ed) | Stuart Candy and Jeff Watson | © 2018 | [situationlab.org](situationlab.org)
