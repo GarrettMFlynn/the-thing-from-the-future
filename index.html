@@ -14,22 +14,34 @@
 
 
 
-<body onload="allQueries()">
+<body onload="allQueries(filename)">
 <noscript>
     <strong>We're sorry but The Thing from the Future doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
 </noscript>
 <div id="app">
 <div class="head bar">
     <h1>The Thing From the Future</h1>
-    <p><a href="http://situationlab.org/project/the-thing-from-the-future/">The Thing From The Future</a> was created by Jeff Watson and <a href="http://situationlab.org/">The Situation Lab</a></p>
+    <p>The Thing from the Future (2nd ed) | Stuart Candy and Jeff Watson | © 2018 | <a href="http://situationlab.org/">situationlab.org</a></p>
 </div>
 <section id="ttftf">
+    <div id="game-options">
+        <div id="mod_select">
+            <h4 id="mod">Choose a Mod</h4>
+            <div class="break"></div>
+            <select name="mods"  id="mods">
+                <option selected>Second Edition</option>
+                <option >Futures Cone | Brain-Controlled Game</option>
+                <option >Brain-Controlled Future</option>
+                <option >Futures Cone | Related to Brain-Controlled Games</option>
+                <option >Related to Brain-Controlled Games</option>
+
+            </select>
+        </div>
+        <button id="Generate0" class="option" onclick=allQueries(filename)><div class="icon"><i class="fas fa-magic fa-2x"></i></div>Generate Random Game</button>
+    </div>
     <div id="game">
         <div class="card-holder">
-            <div id="game-options">
-                <button id="Generate0" class="option" onclick=allQueries('English')><div class="icon"><i class="fas fa-magic fa-2x"></i></div>Generate Random Game</button>
-            </div>
-            <button class="card" style="background: hsla(80, 100%, 30%, 1); border-color: hsla(99, 39%, 20%, 1);" onclick="queryCSV('future')">
+            <button class="card" style="background: hsla(80, 100%, 30%, 1); border-color: hsla(99, 39%, 20%, 1);" onclick="queryCSV('future',filename)">
                 <h3 id="future0" class ='card-type' style="color: hsla(99, 39%, 20%, 1);" >Future</h3>
                 <div class="card-text">
                     <p id="future1">In a</p>
@@ -38,7 +50,7 @@
                     <p></p>
                 </div>
             </button>
-            <button class="card" style="background: hsla(338, 85%, 43%, 1); border-color: hsla(355, 87%, 20%, 1);" onclick="queryCSV('thing')">
+            <button class="card" style="background: hsla(338, 85%, 43%, 1); border-color: hsla(355, 87%, 20%, 1);" onclick="queryCSV('thing',filename)">
                 <h3 id="thing0" class ='card-type' style="color: hsla(355, 87%, 20%, 1);" >Thing</h3>
                 <div class="card-text">
                     <p id="thing1">There is</p>
@@ -47,7 +59,7 @@
                     <p>&nbsp;</p>
                 </div>
             </button>
-            <button class="card" style="background: hsla(297, 27%, 46%, 1); border-color: hsla(296, 29%, 20%, 1);" onclick="queryCSV('theme')">
+            <button class="card" style="background: hsla(297, 27%, 46%, 1); border-color: hsla(296, 29%, 20%, 1);" onclick="queryCSV('theme',filename)">
                 <h3 id="theme0" class ='card-type' style="color: hsla(296, 29%, 20%, 1);" >Theme</h3>
                 <div class="card-text">
                     <p id="theme1">Related to</p>
@@ -63,6 +75,41 @@
 </div>
 
 <script>
+
+    let filename;
+
+    mods = {'Second Edition':{
+            file: 'cards.csv',
+            overrides: {}
+        },
+        'Futures Cone | Brain-Controlled Game':{
+        file: 'cone.csv',
+            overrides: { 'thing': 'brain-controlled game'}
+        },
+        'Brain-Controlled Future':{
+        file: 'cards.csv',
+        overrides: { 'future': 'brain-controlled'}
+        },
+        'Futures Cone | Related to Brain-Controlled Games': {
+        file: 'cone.csv',
+        overrides: { 'theme': 'brain-controlled games'}
+            },
+        'Related to Brain-Controlled Games': {
+            file: 'cards.csv',
+            overrides: { 'theme': 'brain-controlled games'}
+        }
+
+    }
+
+    const selectElement = document.getElementById('mods');
+    var mod = document.getElementById('mods').value;
+    filename = mods[mod].file;
+
+    selectElement.addEventListener('change', (event) => {
+        mod = event.target.value;
+        chooseMod(mod, mods);
+    });
+
 </script>
 </body>
 </html>

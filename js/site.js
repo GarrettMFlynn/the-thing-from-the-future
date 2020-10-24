@@ -1,15 +1,32 @@
 
-function allQueries() {
+function allQueries(filename) {
     let all = ['future','thing','theme']
     for (const ind in all) {
-        queryCSV(all[ind])
+        queryCSV(all[ind],filename)
     }
 }
 
-function queryCSV(text_id) {
-    let file_id = ''
+function chooseMod(mod,mods) {
+    let params = mods[mod]
+    let overrides = Object.keys(params.overrides);
+    let all = ['future','thing','theme']
+    for (const ind in all) {
+        document.getElementById(all[ind]).className = ''
+    }
 
-    let file = 'assets/cards.csv'
+    for (let override in overrides){
+        document.getElementById(overrides[override]).innerHTML = params.overrides[overrides[override]]
+        document.getElementById(overrides[override]).className = 'lock'
+    }
+
+    filename = params.file;
+
+    allQueries(filename)
+}
+
+function queryCSV(text_id,filename) {
+
+    let file = 'assets/' + filename
     d3.csv(file).then(function (data) {
         let flag = true;
         let inner_flag;
@@ -45,10 +62,13 @@ function queryCSV(text_id) {
                 output = bag[row]
                 if (output != '') {
                     flag = false;
-                    if (output == 'a D.I.Y. Kit') {
-                        document.getElementById(text_id).innerHTML = 'a D.I.Y kit';
-                    } else{
-                        document.getElementById(text_id).innerHTML = output.toLowerCase();
+                    let el = document.getElementById(text_id)
+                    if (el.className != 'lock') {
+                        if (output == 'a D.I.Y. Kit') {
+                            el.innerHTML = 'a D.I.Y kit';
+                        } else {
+                            el.innerHTML = output.toLowerCase();
+                        }
                     }
                 }
             }

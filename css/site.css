@@ -157,6 +157,13 @@ select {
     justify-content: center;
 }
 
+#game-options{
+    display:flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
 .remove{
     display: none;
 }
@@ -209,8 +216,8 @@ select {
 
 .card{
     margin: 25px;
-    height: 300px;
-    width: 200px;
+    height: 325px;
+    width: 225px;
     padding: 0px 0px;
     border: 2px solid;
     border-radius: 15px;
@@ -232,7 +239,10 @@ select {
     background: white;
     flex-grow: 1;
     color: black;
-    min-height: 50px;
+    display: flex;
+    /*justify-content: center;*/
+    align-items: center;
+    min-height: 75px;
 }
 
 .prompt{
